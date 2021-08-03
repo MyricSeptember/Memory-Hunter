@@ -17,6 +17,7 @@
         <entry key="app/src/main/res/drawable/ic_star.xml" value="0.1574074074074074" />
         <entry key="app/src/main/res/drawable/ic_work.xml" value="0.1574074074074074" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.15364583333333334" />
+        <entry key="app/src/main/res/layout/fragment_memory_hunter.xml" value="0.275" />
       </map>
     </option>
   </component>

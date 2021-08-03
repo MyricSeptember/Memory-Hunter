@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/memoryHunterFragment">
+
+    <fragment
+        android:id="@+id/memoryHunterFragment"
+        android:name="com.myricseptember.memoryhunter.ui.MemoryHunterFragment"
+        android:label="MemoryHunterFragment"
+        tools:layout="@layout/fragment_memory_hunter"/>
+</navigation>
