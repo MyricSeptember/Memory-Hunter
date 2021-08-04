@@ -8,7 +8,7 @@ import com.myricseptember.memoryhunter.model.MemoryCard
 
 class MemoryHunterViewModel : ViewModel() {
 
-    private var boardSize = MutableLiveData(BoardSize.EASY)
+    var boardSize = MutableLiveData(BoardSize.EASY)
 
     private var _cards = MutableLiveData<List<MemoryCard>>()
     val cards: LiveData<List<MemoryCard>> = _cards
