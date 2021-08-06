@@ -38,13 +38,13 @@ class MemoryHunterViewModel : ViewModel() {
         // 0 cards previously flipped over => restore cards + flip over the selected card
         // 1 card previously flipped over => flip over the selected card + check if the images match
         // 2 cards previously flipped over => restore cards + flip over the selected card
-        if (indexOfSingleSelectedCard == null) {
+        if (_indexOfSingleSelectedCard.value == null) {
             // 0 or 2 selected cards previously
             restoreCards()
             _indexOfSingleSelectedCard.value = position
         } else {
             // exactly 1 card was selected previously
-            foundMatch = checkForMatch(indexOfSingleSelectedCard.value!!, position)
+            foundMatch = checkForMatch(_indexOfSingleSelectedCard.value!!, position)
             _indexOfSingleSelectedCard.value = null
         }
         card?.isFaceUp = !card?.isFaceUp!!
