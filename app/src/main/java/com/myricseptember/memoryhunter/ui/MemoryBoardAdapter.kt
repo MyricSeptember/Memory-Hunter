@@ -21,8 +21,7 @@ class MemoryBoardAdapter(
     private val boardSize: BoardSize,
     private val cards: List<MemoryCard>,
     private val cardClickListener: CardClickListener
-) :
-    RecyclerView.Adapter<MemoryBoardAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<MemoryBoardAdapter.ViewHolder>() {
 
     companion object {
         private const val TAG = "MemoryBoardAdapter"

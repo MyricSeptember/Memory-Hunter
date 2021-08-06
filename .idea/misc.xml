@@ -19,7 +19,8 @@
         <entry key="app/src/main/res/drawable/ic_work.xml" value="0.1574074074074074" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.15364583333333334" />
         <entry key="app/src/main/res/layout/card_image.xml" value="0.275" />
-        <entry key="app/src/main/res/layout/fragment_memory_hunter.xml" value="0.275" />
+        <entry key="app/src/main/res/layout/dialog_board_size.xml" value="0.275" />
+        <entry key="app/src/main/res/layout/fragment_memory_hunter.xml" value="0.1" />
         <entry key="app/src/main/res/layout/memory_card.xml" value="0.275" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.275" />
       </map>

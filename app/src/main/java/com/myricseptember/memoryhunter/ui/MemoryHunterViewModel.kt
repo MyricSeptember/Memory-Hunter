@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.myricseptember.memoryhunter.model.BoardSize
 import com.myricseptember.memoryhunter.model.MemoryCard
+import com.myricseptember.memoryhunter.util.DEFAULT_ICONS
 
 class MemoryHunterViewModel : ViewModel() {
 
@@ -22,6 +23,12 @@ class MemoryHunterViewModel : ViewModel() {
     private var _indexOfSingleSelectedCard = MutableLiveData<Int?>(0)
     val indexOfSingleSelectedCard: MutableLiveData<Int?> = _indexOfSingleSelectedCard
 
+
+    init {
+        val chosenImages = DEFAULT_ICONS.shuffled().take(boardSize.value?.getNumPairs()!!)
+        val randomizedImages = (chosenImages + chosenImages).shuffled()
+        _cards.value = randomizedImages.map { MemoryCard(it) }
+    }
 
     fun flipCard(position: Int): Boolean {
         _numCardFlips.value?.plus(1)
