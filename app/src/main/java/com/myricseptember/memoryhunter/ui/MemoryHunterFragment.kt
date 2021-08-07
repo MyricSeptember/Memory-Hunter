@@ -28,6 +28,7 @@ class MemoryHunterFragment : Fragment() {
     private val memoryHunterViewModel: MemoryHunterViewModel by viewModels()
     private lateinit var adapter: MemoryBoardAdapter
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -72,14 +73,17 @@ class MemoryHunterFragment : Fragment() {
             BoardSize.EASY -> {
                 binding.tvNumMoves.text = "Easy: 4 x 2"
                 binding.tvNumPairs.text = "Pairs: 0/4"
+                memoryHunterViewModel.newSize()
             }
             BoardSize.MEDIUM -> {
                 binding.tvNumMoves.text = "Medium: 6 x 3"
                 binding.tvNumPairs.text = "Pairs: 0/9"
+                memoryHunterViewModel.newSize()
             }
             BoardSize.HARD -> {
                 binding.tvNumMoves.text = "Hard: 6 x 4"
                 binding.tvNumPairs.text = "Pairs: 0/12"
+                memoryHunterViewModel.newSize()
             }
         }
         binding.tvNumPairs.setTextColor(
@@ -88,6 +92,7 @@ class MemoryHunterFragment : Fragment() {
                 R.color.color_progress_none
             )
         )
+        memoryHunterViewModel.resetScore()
         adapter = MemoryBoardAdapter(
             requireContext(),
             memoryHunterViewModel.boardSize.value!!,
@@ -117,6 +122,11 @@ class MemoryHunterFragment : Fragment() {
             }.show()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_main, menu)
     }
@@ -125,12 +135,16 @@ class MemoryHunterFragment : Fragment() {
         when (item.itemId) {
             R.id.mi_refresh -> {
                 if (memoryHunterViewModel.getNumMoves()!! > 0 && !memoryHunterViewModel.haveWonGame()) {
-
+                    showAlertDialog("Quit your current game?", null, View.OnClickListener {
+                        setupBoard()
+                    })
                 } else {
+                    setupBoard()
                 }
                 return true
             }
             R.id.mi_new_size -> {
+                showNewSizeDialog()
                 return true
             }
         }
@@ -150,17 +164,25 @@ class MemoryHunterFragment : Fragment() {
 
         // Actually flip the card
         if (memoryHunterViewModel.flipCard(position)) {
-            Log.i(TAG, "Found a match! Num pairs found: ${memoryHunterViewModel.numPairsFound.value}")
+            Log.i(
+                TAG,
+                "Found a match! Num pairs found: ${memoryHunterViewModel.numPairsFound.value}"
+            )
             val color = ArgbEvaluator().evaluate(
                 memoryHunterViewModel.numPairsFound.value?.toFloat()!! / memoryHunterViewModel.boardSize.value?.getNumPairs()!!,
                 ContextCompat.getColor(requireContext(), R.color.color_progress_none),
                 ContextCompat.getColor(requireContext(), R.color.color_progress_full)
             ) as Int
             binding.tvNumPairs.setTextColor(color)
-            binding.tvNumPairs.text = "Pairs: ${memoryHunterViewModel.numPairsFound.value} / ${memoryHunterViewModel.boardSize.value!!.getNumPairs()}"
+            binding.tvNumPairs.text =
+                "Pairs: ${memoryHunterViewModel.numPairsFound.value} / ${memoryHunterViewModel.boardSize.value!!.getNumPairs()}"
             if (memoryHunterViewModel.haveWonGame()) {
-                Snackbar.make(binding.clRoot, "You won! Congratulations.", Snackbar.LENGTH_LONG).show()
-                CommonConfetti.rainingConfetti(binding.clRoot, intArrayOf(Color.YELLOW, Color.GREEN, Color.MAGENTA)).oneShot()
+                Snackbar.make(binding.clRoot, "You won! Congratulations.", Snackbar.LENGTH_LONG)
+                    .show()
+                CommonConfetti.rainingConfetti(
+                    binding.clRoot,
+                    intArrayOf(Color.YELLOW, Color.GREEN, Color.MAGENTA)
+                ).oneShot()
             }
         }
         binding.tvNumMoves.text = "Moves: ${memoryHunterViewModel.getNumMoves()}"
