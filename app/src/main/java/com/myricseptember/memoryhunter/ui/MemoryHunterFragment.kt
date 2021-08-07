@@ -153,11 +153,11 @@ class MemoryHunterFragment : Fragment() {
     private fun updateGameWithFlip(position: Int) {
         // Error handling:
         if (memoryHunterViewModel.haveWonGame()) {
-            //Snackbar.make(clRoot, "You already won! Use the menu to play again.", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.clRoot, "You already won! Use the menu to play again.", Snackbar.LENGTH_LONG).show()
             return
         }
         if (memoryHunterViewModel.isCardFaceUp(position)!!) {
-            //Snackbar.make(clRoot, "Invalid move!", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(binding.clRoot, "Invalid move!", Snackbar.LENGTH_SHORT).show()
             return
         }
 
