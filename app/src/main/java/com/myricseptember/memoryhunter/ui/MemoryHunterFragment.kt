@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.*
 import android.widget.RadioGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -37,6 +38,7 @@ class MemoryHunterFragment : Fragment() {
                 lifecycleOwner = viewLifecycleOwner
                 viewModel = memoryHunterViewModel
             }
+        (activity as AppCompatActivity).supportActionBar?.title = "Memory Hunter"
         subscribeToObservers()
         setupBoard()
         return binding.root
@@ -148,17 +150,17 @@ class MemoryHunterFragment : Fragment() {
 
         // Actually flip the card
         if (memoryHunterViewModel.flipCard(position)) {
-            Log.i(TAG, "Found a match! Num pairs found: ${memoryHunterViewModel.numPairsFound}")
+            Log.i(TAG, "Found a match! Num pairs found: ${memoryHunterViewModel.numPairsFound.value}")
             val color = ArgbEvaluator().evaluate(
                 memoryHunterViewModel.numPairsFound.value?.toFloat()!! / memoryHunterViewModel.boardSize.value?.getNumPairs()!!,
                 ContextCompat.getColor(requireContext(), R.color.color_progress_none),
                 ContextCompat.getColor(requireContext(), R.color.color_progress_full)
             ) as Int
             binding.tvNumPairs.setTextColor(color)
-            binding.tvNumPairs.text = "Pairs: ${memoryHunterViewModel.numPairsFound} / ${memoryHunterViewModel.boardSize.value!!.getNumPairs()}"
+            binding.tvNumPairs.text = "Pairs: ${memoryHunterViewModel.numPairsFound.value} / ${memoryHunterViewModel.boardSize.value!!.getNumPairs()}"
             if (memoryHunterViewModel.haveWonGame()) {
-                //Snackbar.make(clRoot, "You won! Congratulations.", Snackbar.LENGTH_LONG).show()
-               // CommonConfetti.rainingConfetti(clRoot, intArrayOf(Color.YELLOW, Color.GREEN, Color.MAGENTA)).oneShot()
+                Snackbar.make(binding.clRoot, "You won! Congratulations.", Snackbar.LENGTH_LONG).show()
+                CommonConfetti.rainingConfetti(binding.clRoot, intArrayOf(Color.YELLOW, Color.GREEN, Color.MAGENTA)).oneShot()
             }
         }
         binding.tvNumMoves.text = "Moves: ${memoryHunterViewModel.getNumMoves()}"

@@ -20,9 +20,8 @@ class MemoryHunterViewModel : ViewModel() {
     private var _numCardFlips = MutableLiveData<Int>(0)
     val numCardFlips: LiveData<Int> = _numCardFlips
 
-    private var _indexOfSingleSelectedCard = MutableLiveData<Int?>(0)
+    private var _indexOfSingleSelectedCard = MutableLiveData<Int?>()
     val indexOfSingleSelectedCard: MutableLiveData<Int?> = _indexOfSingleSelectedCard
-
 
     init {
         val chosenImages = DEFAULT_ICONS.shuffled().take(boardSize.value?.getNumPairs()!!)
@@ -31,7 +30,7 @@ class MemoryHunterViewModel : ViewModel() {
     }
 
     fun flipCard(position: Int): Boolean {
-        _numCardFlips.value?.plus(1)
+        _numCardFlips.value = _numCardFlips.value?.plus(1)
         val card = cards.value?.get(position)
         var foundMatch = false
         // Three cases
@@ -57,7 +56,7 @@ class MemoryHunterViewModel : ViewModel() {
         }
         cards.value?.get(position1)?.isMatched = true
         cards.value?.get(position2)?.isMatched = true
-        numPairsFound.value?.plus(1)
+        _numPairsFound.value =  _numPairsFound.value?.plus(1)
         return true
     }
 
@@ -71,7 +70,7 @@ class MemoryHunterViewModel : ViewModel() {
     }
 
     fun haveWonGame(): Boolean {
-        return numPairsFound == boardSize.value?.getNumPairs() ?: false
+        return _numPairsFound.value == boardSize.value?.getNumPairs() ?: false
     }
 
     fun isCardFaceUp(position: Int): Boolean? {
