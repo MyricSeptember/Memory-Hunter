@@ -8,6 +8,6 @@
     <fragment
         android:id="@+id/memoryHunterFragment"
         android:name="com.myricseptember.memoryhunter.ui.MemoryHunterFragment"
-        android:label="MemoryHunterFragment"
-        tools:layout="@layout/fragment_memory_hunter"/>
+        android:label="Memory Hunter"
+        tools:layout="@layout/fragment_memory_hunter" />
 </navigation>

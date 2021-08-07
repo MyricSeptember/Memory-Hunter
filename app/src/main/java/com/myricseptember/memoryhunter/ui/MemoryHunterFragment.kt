@@ -39,7 +39,6 @@ class MemoryHunterFragment : Fragment() {
                 lifecycleOwner = viewLifecycleOwner
                 viewModel = memoryHunterViewModel
             }
-        (activity as AppCompatActivity).supportActionBar?.title = "Memory Hunter"
         subscribeToObservers()
         setupBoard()
         return binding.root
