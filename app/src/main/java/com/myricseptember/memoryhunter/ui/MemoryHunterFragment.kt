@@ -57,7 +57,7 @@ class MemoryHunterFragment : Fragment() {
             BoardSize.MEDIUM -> radioGroupSize.check(R.id.rbMedium)
             BoardSize.HARD -> radioGroupSize.check(R.id.rbHard)
         }
-        showAlertDialog("Choose new size", boardSizeView, View.OnClickListener {
+        showAlertDialog(getString(R.string.choose_size), boardSizeView, View.OnClickListener {
             memoryHunterViewModel.boardSize.value = when (radioGroupSize.checkedRadioButtonId) {
                 R.id.rbEasy -> BoardSize.EASY
                 R.id.rbMedium -> BoardSize.MEDIUM
@@ -115,8 +115,8 @@ class MemoryHunterFragment : Fragment() {
         AlertDialog.Builder(requireContext())
             .setTitle(title)
             .setView(view)
-            .setNegativeButton("Cancel", null)
-            .setPositiveButton("OK") { _, _ ->
+            .setNegativeButton(getString(R.string.cancel), null)
+            .setPositiveButton(getString(R.string.ok)) { _, _ ->
                 positiveClickListener.onClick(null)
             }.show()
     }
@@ -134,7 +134,7 @@ class MemoryHunterFragment : Fragment() {
         when (item.itemId) {
             R.id.mi_refresh -> {
                 if (memoryHunterViewModel.getNumMoves()!! > 0 && !memoryHunterViewModel.haveWonGame()) {
-                    showAlertDialog("Quit your current game?", null, View.OnClickListener {
+                    showAlertDialog(getString(R.string.quit_game_message), null, View.OnClickListener {
                         setupBoard()
                     })
                 } else {
@@ -153,11 +153,11 @@ class MemoryHunterFragment : Fragment() {
     private fun updateGameWithFlip(position: Int) {
         // Error handling:
         if (memoryHunterViewModel.haveWonGame()) {
-            Snackbar.make(binding.clRoot, "You already won! Use the menu to play again.", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.clRoot, getString(R.string.already_won_message), Snackbar.LENGTH_LONG).show()
             return
         }
         if (memoryHunterViewModel.isCardFaceUp(position)!!) {
-            Snackbar.make(binding.clRoot, "Invalid move!", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(binding.clRoot, getString(R.string.invalid_entry_message), Snackbar.LENGTH_SHORT).show()
             return
         }
 
@@ -176,7 +176,7 @@ class MemoryHunterFragment : Fragment() {
             binding.tvNumPairs.text =
                 "Pairs: ${memoryHunterViewModel.numPairsFound.value} / ${memoryHunterViewModel.boardSize.value!!.getNumPairs()}"
             if (memoryHunterViewModel.haveWonGame()) {
-                Snackbar.make(binding.clRoot, "You won! Congratulations.", Snackbar.LENGTH_LONG)
+                Snackbar.make(binding.clRoot, getString(R.string.winning_message), Snackbar.LENGTH_LONG)
                     .show()
                 CommonConfetti.rainingConfetti(
                     binding.clRoot,

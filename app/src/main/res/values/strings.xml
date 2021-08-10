@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Memory Hunter</string>
+
+    <string name="already_won_message">You already won! Use the menu to play again.</string>
+    <string name="winning_message">You won! Congratulations.</string>
+    <string name="invalid_entry_message">Invalid move!</string>
+    <string name="quit_game_message">Quit your current game?</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="choose_size">Choose new size</string>
+
+
 </resources>
