@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.*
 import android.widget.RadioGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -28,7 +27,6 @@ class MemoryHunterFragment : Fragment() {
     private val memoryHunterViewModel: MemoryHunterViewModel by viewModels()
     private lateinit var adapter: MemoryBoardAdapter
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,7 +41,6 @@ class MemoryHunterFragment : Fragment() {
         setupBoard()
         return binding.root
     }
-
 
     private fun subscribeToObservers() {
     }
@@ -134,9 +131,12 @@ class MemoryHunterFragment : Fragment() {
         when (item.itemId) {
             R.id.mi_refresh -> {
                 if (memoryHunterViewModel.getNumMoves()!! > 0 && !memoryHunterViewModel.haveWonGame()) {
-                    showAlertDialog(getString(R.string.quit_game_message), null, View.OnClickListener {
-                        setupBoard()
-                    })
+                    showAlertDialog(
+                        getString(R.string.quit_game_message),
+                        null,
+                        View.OnClickListener {
+                            setupBoard()
+                        })
                 } else {
                     setupBoard()
                 }
@@ -153,11 +153,19 @@ class MemoryHunterFragment : Fragment() {
     private fun updateGameWithFlip(position: Int) {
         // Error handling:
         if (memoryHunterViewModel.haveWonGame()) {
-            Snackbar.make(binding.clRoot, getString(R.string.already_won_message), Snackbar.LENGTH_LONG).show()
+            Snackbar.make(
+                binding.clRoot,
+                getString(R.string.already_won_message),
+                Snackbar.LENGTH_LONG
+            ).show()
             return
         }
         if (memoryHunterViewModel.isCardFaceUp(position)!!) {
-            Snackbar.make(binding.clRoot, getString(R.string.invalid_entry_message), Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(
+                binding.clRoot,
+                getString(R.string.invalid_entry_message),
+                Snackbar.LENGTH_SHORT
+            ).show()
             return
         }
 
@@ -176,7 +184,11 @@ class MemoryHunterFragment : Fragment() {
             binding.tvNumPairs.text =
                 "Pairs: ${memoryHunterViewModel.numPairsFound.value} / ${memoryHunterViewModel.boardSize.value!!.getNumPairs()}"
             if (memoryHunterViewModel.haveWonGame()) {
-                Snackbar.make(binding.clRoot, getString(R.string.winning_message), Snackbar.LENGTH_LONG)
+                Snackbar.make(
+                    binding.clRoot,
+                    getString(R.string.winning_message),
+                    Snackbar.LENGTH_LONG
+                )
                     .show()
                 CommonConfetti.rainingConfetti(
                     binding.clRoot,
