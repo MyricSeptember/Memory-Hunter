@@ -21,7 +21,6 @@ class MemoryHunterViewModel : ViewModel() {
     val numCardFlips: LiveData<Int> = _numCardFlips
 
     private var _indexOfSingleSelectedCard = MutableLiveData<Int?>()
-    val indexOfSingleSelectedCard: MutableLiveData<Int?> = _indexOfSingleSelectedCard
 
     init {
         newSize()
